@@ -25,5 +25,5 @@ mp3.tag.genre = unicode(raw_input('Genero: '))
 mp3.tag.album = unicode(raw_input('Album: '))
 letra = lyrics.find(artista, titulo).song.lyric
 mp3.tag.lyrics.set(unicode(letra))
-mp3.tag.save()
-
+mp3.tag.save(version=eyed3.id3.ID3_V2_3)
+mp3.rename(artista + ' - ' + titulo)
