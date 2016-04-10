@@ -10,25 +10,37 @@ import sys
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
-url = raw_input('Digite a URL da música: ')
-audio = pafy.new(url).getbestaudio()
-print(audio.title)
-file = audio.download();
-print()
+def main():
+    url = raw_input('Digite a URL da música: ')
+    audio = pafy.new(url).getbestaudio()
+    file = audio.download();
 
-mp3_audio = AudioSegment.from_file(file, audio.extension)
-mp3_audio.export(audio.title + '.mp3', format='mp3')
+    convertToMp3(file, audio)
 
+    print()
+    title = raw_input('Titulo: ')
+    artist = raw_input('Artista: ')
+    gender = raw_input('Genero: ')
+    album = raw_input('Album: ')
 
-titulo = raw_input('Titulo: ')
-artista = raw_input('Artista: ')
+    editTags(audio, title, artist, gender, album)
 
-mp3 = eyed3.load(audio.title + ".mp3")
-mp3.tag.title = unicode(titulo)
-mp3.tag.artist = unicode(artista)
-mp3.tag.genre = unicode(raw_input('Genero: '))
-mp3.tag.album = unicode(raw_input('Album: '))
-letra = lyrics.find(artista, titulo).song.lyric
-mp3.tag.lyrics.set(unicode(letra))
-mp3.tag.save(version=eyed3.id3.ID3_V2_3)
-mp3.rename(artista + ' - ' + titulo)
+def convertToMp3(file, audio):
+    mp3_audio = AudioSegment.from_file(file, audio.extension)
+    mp3_audio.export(audio.title + '.mp3', format='mp3')
+
+def editTags(audio, title, artist, gender, album):
+    mp3 = eyed3.load(audio.title + ".mp3")
+    mp3.tag.title = unicode(title)
+    mp3.tag.artist = unicode(artist)
+    mp3.tag.genre = unicode(gender)
+    mp3.tag.album = unicode(album)
+    mp3.tag.lyrics.set(unicode(getLyrics(artist, title)))
+    mp3.tag.save(version=eyed3.id3.ID3_V2_3)
+    mp3.rename(artist + ' - ' + title)
+
+def getLyrics(artist, title):
+    return lyrics.find(artist, title).song.lyric
+
+if __name__ == "__main__":
+    main()
