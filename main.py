@@ -5,6 +5,11 @@ from pydub import AudioSegment
 import eyed3
 from vagalume import lyrics
 
+#fix encoding
+import sys
+reload(sys)
+sys.setdefaultencoding("utf-8")
+
 url = raw_input('Digite a URL da música: ')
 audio = pafy.new(url).getbestaudio()
 print(audio.title)
