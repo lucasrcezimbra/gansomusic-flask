@@ -1,0 +1,23 @@
+from flask import Flask
+from flask import render_template
+from flask import request
+
+app = Flask(__name__)
+
+@app.route("/")
+def index():
+    return render_template('index.html')
+
+@app.route("/download", methods=['POST'])
+def download(url='', title='', artist='', gender='', album=''):
+    url = request.form['url']
+    title = request.form['title']
+    artist = request.form['artist']
+    gender = request.form['gender']
+    album = request.form['album']
+    print url+' '+title+' '+ artist+' '+gender+' '+album
+    return url+'<br />'+title+'<br />'+ artist+'<br />'+gender+'<br />'+album
+
+if __name__ == "__main__":
+    app.debug = True
+    app.run()
