@@ -1,6 +1,5 @@
-from flask import Flask
-from flask import render_template
-from flask import request
+from flask import Flask, render_template, request, send_from_directory
+from download import Downloader
 
 app = Flask(__name__)
 
@@ -16,7 +15,9 @@ def download(url='', title='', artist='', gender='', album=''):
     gender = request.form['gender']
     album = request.form['album']
     print url+' '+title+' '+ artist+' '+gender+' '+album
-    return url+'<br />'+title+'<br />'+ artist+'<br />'+gender+'<br />'+album
+    downloader = Downloader(url, title, artist, gender, album)
+    downloader.download()
+    return send_from_directory('.', downloader.getPath())
 
 if __name__ == "__main__":
     app.debug = True
