@@ -37,7 +37,13 @@ class Downloader:
         mp3.tag.album = unicode(self.album)
         mp3.tag.lyrics.set(unicode(self.__getLyrics()))
         mp3.tag.save(version=eyed3.id3.ID3_V2_3)
-        mp3.rename(self.artist + ' - ' + self.title)
+        mp3.rename(self.getName())
+
+    def getName(self):
+        return self.artist + ' - ' + self.title
+
+    def getPath(self):
+        return self.artist + ' - ' + self.title + '.mp3'
 
     def __getLyrics(self):
         return lyrics.find(self.artist, self.title).song.lyric
