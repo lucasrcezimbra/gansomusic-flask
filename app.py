@@ -17,7 +17,7 @@ def download(url='', title='', artist='', gender='', album=''):
     print url+' '+title+' '+ artist+' '+gender+' '+album
     downloader = Downloader(url, title, artist, gender, album)
     downloader.download()
-    return send_from_directory('.', downloader.getPath())
+    return send_from_directory('.', downloader.getPath(), as_attachment=True)
 
 if __name__ == "__main__":
     app.debug = True
