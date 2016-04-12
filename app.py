@@ -14,7 +14,6 @@ def download(url='', title='', artist='', gender='', album=''):
     artist = request.form['artist']
     gender = request.form['gender']
     album = request.form['album']
-    print url+' '+title+' '+ artist+' '+gender+' '+album
     downloader = Downloader(url, title, artist, gender, album)
     downloader.download()
     return send_from_directory('.', downloader.getPath(), as_attachment=True)
