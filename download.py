@@ -46,7 +46,12 @@ class Downloader:
         return self.artist + ' - ' + self.title + '.mp3'
 
     def __getLyrics(self):
-        return lyrics.find(self.artist, self.title).song.lyric
+        result = lyrics.find(self.artist, self.title)
+        if result.is_not_found():
+            return ''
+        else:
+            return result.song.lyric
+
 
 if __name__ == "__main__":
     main()
