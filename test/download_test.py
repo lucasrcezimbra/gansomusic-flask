@@ -2,6 +2,7 @@
 
 import unittest
 import os.path
+import eyed3
 from rangelmusic.download import Downloader
 
 class DownloaderTest(unittest.TestCase):
@@ -9,19 +10,20 @@ class DownloaderTest(unittest.TestCase):
         self.url = '_pbR605pYo8'
         self.title = 'título'
         self.artist = 'artista'
-        self.gender = 'genero'
+        self.genre = 'genero'
         self.album = 'album'
-        self.downloader = Downloader(self.url, self.title, self.artist, self.gender, self.album)
+        self.video_title = 'O menor video do youtube-Han...'
+        self.downloader = Downloader(self.url, self.title, self.artist, self.genre, self.album)
+        self.mp3_path = self.downloader.download()
 
     def test(self):
         self.assertTrue(isinstance(self.downloader, Downloader))
 
     def test_remove_downloaded_audio(self):
-        self.downloader.download()
         self.assertFalse(os.path.isfile('O menor video do youtube-Han....m4a'))
+        self.assertFalse(os.path.isfile(self.video_title+'.m4a'))
 
     def test_convert_to_mp3(self):
-        self.downloader.download()
         self.assertTrue(os.path.isfile('artista - título.mp3'))
         self.assertTrue(os.path.isfile(self.artist+' - '+self.title+'.mp3'))
 
@@ -38,7 +40,32 @@ class DownloaderTest(unittest.TestCase):
         self.downloader.download()
         self.downloader.download()
 
+    def test_not_rename_with_dont_have_title_and_artist(self):
+        self.downloader = Downloader(self.url, '', self.artist, self.genre, self.album)
+        self.downloader.download()
+        self.assertTrue(os.path.isfile(self.video_title+'.mp3'))
 
+        self.downloader = Downloader(self.url, self.title, '', self.genre, self.album)
+        self.downloader.download()
+        self.assertTrue(os.path.isfile(self.video_title+'.mp3'))
+
+        self.downloader = Downloader(self.url, '', '', self.genre, self.album)
+        self.downloader.download()
+        self.assertTrue(os.path.isfile(self.video_title+'.mp3'))
+
+    def test_set_correct_tags(self):
+        mp3 = eyed3.load(self.mp3_path)
+        self.assertEqual(self.title, mp3.tag.title)
+        self.assertEqual(self.artist, mp3.tag.artist)
+        self.assertEqual(self.genre, mp3.tag.genre.name)
+        self.assertEqual(self.album, mp3.tag.album)
+
+    def test_set_id3_version2_3(self):
+        mp3 = eyed3.load(self.mp3_path)
+        self.assertEqual(mp3.tag.version, eyed3.id3.ID3_V2_3)
+
+    def test_set_correct_lyric(self):
+        self.assertFalse(True)
 
 if __name__ == "__main__":
     unittest.main()
