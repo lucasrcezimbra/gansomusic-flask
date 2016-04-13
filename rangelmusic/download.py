@@ -62,7 +62,3 @@ class Downloader:
             return ''
         else:
             return result.song.lyric
-
-
-if __name__ == "__main__":
-    main()
