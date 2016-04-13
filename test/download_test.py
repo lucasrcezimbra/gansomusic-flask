@@ -17,7 +17,7 @@ class DownloaderTest(unittest.TestCase):
         self.mp3_path = self.downloader.download()
 
     def test(self):
-        self.assertTrue(isinstance(self.downloader, Downloader))
+        self.assertIsInstance(self.downloader, Downloader)
 
     def test_remove_downloaded_audio(self):
         self.assertFalse(os.path.isfile('O menor video do youtube-Han....m4a'))
@@ -65,7 +65,15 @@ class DownloaderTest(unittest.TestCase):
         self.assertEqual(mp3.tag.version, eyed3.id3.ID3_V2_3)
 
     def test_set_correct_lyric(self):
-        self.assertFalse(True)
+        self.downloader = Downloader(self.url, '', '', self.genre, self.album)
+        mp3_path = self.downloader.download()
+        mp3 = eyed3.load(mp3_path)
+        self.assertEqual('', mp3.tag.lyrics[0].text)
+
+        self.downloader = Downloader(self.url, 'Ela Me Faz', 'Rael', self.genre, self.album)
+        mp3_path = self.downloader.download()
+        mp3 = eyed3.load(mp3_path)
+        self.assertNotEqual('', mp3.tag.lyrics[0].text)
 
 if __name__ == "__main__":
     unittest.main()
