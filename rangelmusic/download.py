@@ -12,11 +12,11 @@ reload(sys)
 sys.setdefaultencoding("utf-8")
 
 class Downloader:
-    def __init__(self, url, title, artist, gender, album):
+    def __init__(self, url, title, artist, genre, album):
         self.url = url
         self.title = title
         self.artist = artist
-        self.gender = gender
+        self.genre = genre
         self.album = album
 
     def download(self):
@@ -35,7 +35,7 @@ class Downloader:
         mp3 = eyed3.load(audio.title + ".mp3")
         mp3.tag.title = unicode(self.title)
         mp3.tag.artist = unicode(self.artist)
-        mp3.tag.genre = unicode(self.gender)
+        mp3.tag.genre = unicode(self.genre)
         mp3.tag.album = unicode(self.album)
         mp3.tag.lyrics.set(unicode(self.__getLyrics()))
         mp3.tag.save(version=eyed3.id3.ID3_V2_3)
