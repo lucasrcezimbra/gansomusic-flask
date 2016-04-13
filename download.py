@@ -4,6 +4,7 @@ import pafy
 from pydub import AudioSegment
 import eyed3
 from vagalume import lyrics
+import os
 
 #fix encoding
 import sys
@@ -23,6 +24,7 @@ class Downloader:
         file = audio.download()
 
         self.__convertToMp3(file, audio)
+        os.remove(file)
         return self.__editTags(audio)
 
     def __convertToMp3(self, file, audio):
