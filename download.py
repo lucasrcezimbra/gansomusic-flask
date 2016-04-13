@@ -20,10 +20,10 @@ class Downloader:
 
     def download(self):
         audio = pafy.new(self.url).getbestaudio()
-        file = audio.download();
+        file = audio.download()
 
         self.__convertToMp3(file, audio)
-        self.__editTags(audio)
+        return self.__editTags(audio)
 
     def __convertToMp3(self, file, audio):
         mp3_audio = AudioSegment.from_file(file, audio.extension)
@@ -37,13 +37,17 @@ class Downloader:
         mp3.tag.album = unicode(self.album)
         mp3.tag.lyrics.set(unicode(self.__getLyrics()))
         mp3.tag.save(version=eyed3.id3.ID3_V2_3)
-        mp3.rename(self.getName())
+        return self.__renameFile(mp3, audio)
+
+    def __renameFile(self, mp3, audio):
+        if self.title and self.artist:
+            mp3.rename(self.getName())
+            return self.getName() + '.mp3'
+        else:
+            return audio.title + '.mp3'
 
     def getName(self):
         return self.artist + ' - ' + self.title
-
-    def getPath(self):
-        return self.artist + ' - ' + self.title + '.mp3'
 
     def __getLyrics(self):
         result = lyrics.find(self.artist, self.title)

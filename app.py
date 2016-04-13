@@ -15,8 +15,8 @@ def download(url='', title='', artist='', gender='', album=''):
     gender = request.form['gender']
     album = request.form['album']
     downloader = Downloader(url, title, artist, gender, album)
-    downloader.download()
-    return send_from_directory('.', downloader.getPath(), as_attachment=True)
+    path = downloader.download()
+    return send_from_directory('.', path, as_attachment=True)
 
 if __name__ == "__main__":
     app.debug = True
