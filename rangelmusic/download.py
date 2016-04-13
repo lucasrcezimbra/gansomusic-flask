@@ -43,13 +43,18 @@ class Downloader:
 
     def __renameFile(self, mp3, audio):
         if self.title and self.artist:
+            if os.path.isfile(self.getPath()):
+                os.remove(self.getPath())
             mp3.rename(self.getName())
-            return self.getName() + '.mp3'
+            return self.getPath()
         else:
             return audio.title + '.mp3'
 
     def getName(self):
-        return self.artist + ' - ' + self.title
+        return self.artist+' - '+self.title
+
+    def getPath(self):
+        return self.getName()+'.mp3'
 
     def __getLyrics(self):
         result = lyrics.find(self.artist, self.title)
