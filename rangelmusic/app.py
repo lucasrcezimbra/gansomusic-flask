@@ -18,7 +18,7 @@ def download(url='', title='', artist='', gender='', album=''):
     album = request.form['album']
     downloader = Downloader(url, title, artist, gender, album)
     path = downloader.download()
-    return send_from_directory('.', path, as_attachment=True)
+    return send_from_directory(os.path.abspath('.'), path, as_attachment=True)
 
 def cleanMp3s():
     mp3s = filter(lambda file: file.endswith('.mp3'), os.listdir('.'))
