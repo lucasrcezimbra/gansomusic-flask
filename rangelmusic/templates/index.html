@@ -3,36 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <title>Ganso Music</title>
-  <link rel="stylesheet" href="static/css/style.css">
   <link rel="shortcut icon" href="static/favicon.ico">
+
+  <link rel="stylesheet" href="static/css/style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 </head>
 <body>
-  <h1>
-    <img src="static/images/ganso.png" alt="Ganso">
-    Ganso Music
-  </h1>
-  <form action="download" method="POST">
-    <span>URL do YouTube:</span>
-    <input type="text" name='url' placeholder='URL do YouTube'/>
-    <br />
+  <div class="container">
+    <h1>
+      <img src="static/images/ganso.png" alt="Ganso">
+      Ganso Music
+    </h1>
 
-    <span>Título</span>
-    <input type="text" name='title' placeholder="Título">
-    <br />
+    <div class="row">
+      <form action="download" method="POST">
+        <div class="form-group">
+          <label class="control-label" for="">*URL do YouTube:</label>
+          <input type="text" name='url' placeholder='URL do YouTube' class="form-control" required/>
+        </div>
 
-    <span>Artista</span>
-    <input type="text" name='artist' placeholder="Artista">
-    <br />
+        <div class="form-group">
+          <label class="control-label" for="">Título:</label>
+          <input type="text" name='title' placeholder="Título" class="form-control">
+        </div>
 
-    <span>Gênero</span>
-    <input type="text" name='gender' placeholder="Gênero">
-    <br />
+        <div class="form-group">
+          <label class="control-label" for="">Artista:</label>
+          <input type="text" name='artist' placeholder="Artista" class="form-control">
+        </div>
 
-    <span>Album</span>
-    <input type="text" name='album' placeholder="Album">
-    <br />
+        <div class="form-group">
+          <label class="control-label" for="">Gênero:</label>
+          <input type="text" name='gender' placeholder="Gênero" class="form-control">
+        </div>
 
-    <input type="submit" value='Download'>
-  </form>
+        <div class="form-group">
+          <label class="control-label" for="">Album:</label>
+          <input type="text" name='album' placeholder="Album" class="form-control">
+        </div>
+
+        <input type="submit" value='Download' class="btn btn-lg btn-primary pull-right">
+      </form>
+    </div>
+  </div>
 </body>
 </html>
