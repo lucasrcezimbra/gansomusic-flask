@@ -3,7 +3,7 @@
 import unittest
 import os.path
 import eyed3
-from rangelmusic.download import Downloader
+from gansomusic.download import Downloader
 
 class DownloaderTest(unittest.TestCase):
     def setUp(self):

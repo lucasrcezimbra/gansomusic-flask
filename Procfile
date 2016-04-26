@@ -1,1 +1,1 @@
-web: gunicorn rangelmusic.app:app
+web: gunicorn gansomusic.app:app
