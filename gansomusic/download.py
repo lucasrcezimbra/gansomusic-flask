@@ -5,6 +5,7 @@ from pydub import AudioSegment
 import eyed3
 from vagalume import lyrics
 import os
+from slugify import Slugify
 
 #fix encoding
 import sys
@@ -18,38 +19,39 @@ class Downloader:
         self.artist = artist
         self.genre = genre
         self.album = album
+        self.slugify = Slugify(separator=' ')
 
     def download(self):
         audio = pafy.new(self.url).getbestaudio()
         file = audio.download()
 
-        self.__convertToMp3(file, audio)
-        os.remove(file)
-        return self.__editTags(audio)
+        self.newtitle = self.slugify(audio.title)
+        self.__convertToMp3(file, audio.extension)
+        return self.__editTags()
 
-    def __convertToMp3(self, file, audio):
-        mp3_audio = AudioSegment.from_file(file, audio.extension)
-        mp3_audio.export(audio.title + '.mp3', format='mp3')
+    def __convertToMp3(self, file, extension):
+        mp3_audio = AudioSegment.from_file(file, extension)
+        mp3_audio.export(self.newtitle + '.mp3', format='mp3')
 
-    def __editTags(self, audio):
-        mp3 = eyed3.load(audio.title + ".mp3")
+    def __editTags(self):
+        mp3 = eyed3.load(self.newtitle + ".mp3")
         mp3.tag.title = unicode(self.title)
         mp3.tag.artist = unicode(self.artist)
         mp3.tag.genre = unicode(self.genre)
         mp3.tag.album = unicode(self.album)
         mp3.tag.lyrics.set(unicode(self.__getLyrics()))
         mp3.tag.save(version=eyed3.id3.ID3_V2_3)
-        return self.__renameFile(mp3, audio)
+        return self.__renameFile(mp3)
 
-    def __renameFile(self, mp3, audio):
-        if audio.title != self.getName():
+    def __renameFile(self, mp3):
+        if self.newtitle != self.getName():
             if self.title and self.artist:
                 if os.path.isfile(self.getPath()):
                     os.remove(self.getPath())
                 mp3.rename(self.getName())
                 return self.getPath()
 
-        return audio.title + '.mp3'
+        return self.newtitle + '.mp3'
 
     def getName(self):
         return self.artist+' - '+self.title

@@ -1,3 +1,4 @@
+awesome-slugify==1.6.5
 eyeD3==0.7.9
 Flask==0.10.1
 gunicorn==19.4.5
@@ -6,7 +7,9 @@ Jinja2==2.8
 MarkupSafe==0.23
 pafy==0.5.0
 pydub==0.16.4
+regex==2016.4.25
 requests==2.9.1
+Unidecode==0.4.19
 vagalume==0.0.5
 Werkzeug==0.11.5
 youtube-dl==2016.4.6

@@ -3,6 +3,7 @@
 import unittest
 import os.path
 import eyed3
+from slugify import slugify
 from gansomusic.download import Downloader
 
 class DownloaderTest(unittest.TestCase):
@@ -13,7 +14,7 @@ class DownloaderTest(unittest.TestCase):
         self.artist = 'artista'
         self.genre = 'genero'
         self.album = 'album'
-        self.video_title = 'O menor video do youtube-Han...'
+        self.video_title = slugify('O menor video do youtube-Han...', separator=' ')
         self.downloader = Downloader(self.url, self.title, self.artist, self.genre, self.album)
         self.mp3_path = self.downloader.download()
 
@@ -87,6 +88,11 @@ class DownloaderTest(unittest.TestCase):
         mp3_path = self.downloader.download()
 
         self.assertTrue(os.path.isfile(mp3_path))
+
+    def test_error_no_such_file(self):
+        self.downloader = Downloader('F93YKF39ai0', 'A Banda Louca do Imortal', 'Geral do Grêmio', self.genre, self.album)
+        mp3_path = self.downloader.download()  
+
 
 if __name__ == "__main__":
     unittest.main()
