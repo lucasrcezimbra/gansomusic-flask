@@ -75,5 +75,11 @@ class DownloaderTest(unittest.TestCase):
         mp3 = eyed3.load(mp3_path)
         self.assertNotEqual('', mp3.tag.lyrics[0].text)
 
+    def test_delete_downloaded_mp3(self):
+        self.downloader = Downloader('https://www.youtube.com/watch?v=SBs_pd1QQu8', 'Ela Só Quer Paz', 'Projota', self.genre, self.album)
+        mp3_path = self.downloader.download()
+
+        self.assertTrue(os.path.isfile(mp3_path))
+
 if __name__ == "__main__":
     unittest.main()

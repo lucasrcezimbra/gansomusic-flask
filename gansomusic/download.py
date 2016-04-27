@@ -42,13 +42,14 @@ class Downloader:
         return self.__renameFile(mp3, audio)
 
     def __renameFile(self, mp3, audio):
-        if self.title and self.artist:
-            if os.path.isfile(self.getPath()):
-                os.remove(self.getPath())
-            mp3.rename(self.getName())
-            return self.getPath()
-        else:
-            return audio.title + '.mp3'
+        if audio.title != self.getName():
+            if self.title and self.artist:
+                if os.path.isfile(self.getPath()):
+                    os.remove(self.getPath())
+                mp3.rename(self.getName())
+                return self.getPath()
+
+        return audio.title + '.mp3'
 
     def getName(self):
         return self.artist+' - '+self.title
