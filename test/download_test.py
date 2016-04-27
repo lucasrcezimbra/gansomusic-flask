@@ -6,7 +6,8 @@ import eyed3
 from gansomusic.download import Downloader
 
 class DownloaderTest(unittest.TestCase):
-    def setUp(self):
+    @classmethod
+    def setUpClass(self):
         self.url = '_pbR605pYo8'
         self.title = 'título'
         self.artist = 'artista'
@@ -15,6 +16,12 @@ class DownloaderTest(unittest.TestCase):
         self.video_title = 'O menor video do youtube-Han...'
         self.downloader = Downloader(self.url, self.title, self.artist, self.genre, self.album)
         self.mp3_path = self.downloader.download()
+
+    @classmethod
+    def tearDownClass(cls):
+        audios = filter(lambda file: file.endswith(('.mp3','.webm')), os.listdir('.'))
+        for audio in audios:
+            os.remove(audio)
 
     def test(self):
         self.assertIsInstance(self.downloader, Downloader)
@@ -76,7 +83,7 @@ class DownloaderTest(unittest.TestCase):
         self.assertNotEqual('', mp3.tag.lyrics[0].text)
 
     def test_delete_downloaded_mp3(self):
-        self.downloader = Downloader('https://www.youtube.com/watch?v=SBs_pd1QQu8', 'Ela Só Quer Paz', 'Projota', self.genre, self.album)
+        self.downloader = Downloader('SBs_pd1QQu8', 'Ela Só Quer Paz', 'Projota', self.genre, self.album)
         mp3_path = self.downloader.download()
 
         self.assertTrue(os.path.isfile(mp3_path))
