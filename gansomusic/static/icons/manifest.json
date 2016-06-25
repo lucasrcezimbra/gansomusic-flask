@@ -38,6 +38,8 @@
 			"density": 4
 		}
 	],
-	"display": "standalone",
-	"orientation": "portrait"
+  "display": "standalone",
+  "orientation": "portrait",
+  "background-color": "#f38620",
+  "theme-color": "#f38620"
 }
