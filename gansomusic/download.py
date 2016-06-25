@@ -19,7 +19,7 @@ class Downloader:
         self.artist = artist
         self.genre = genre
         self.album = album
-        self.slugify = Slugify(separator=' ', safe_chars='-.', translate=None)
+        self.slugify = Slugify(separator=' ', safe_chars='-.&:\'', translate=None)
 
     def download(self):
         audio = pafy.new(self.url).getbestaudio()

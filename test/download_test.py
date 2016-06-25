@@ -103,9 +103,26 @@ class DownloaderTest(unittest.TestCase):
         self.downloader.download()
         self.assertTrue(os.path.isfile('artista - '+self.title+'.mp3'))
 
+        #character /
         self.downloader = Downloader(self.url, 'tí/tu/lo', 'ar/tis/ta', self.genre, self.album)
         self.downloader.download()
         self.assertTrue(os.path.isfile('artista - título.mp3'))
+
+    def test_dont_escape_some_characters(self):
+        #character &
+        self.downloader = Downloader(self.url, 'tít&ulo', 'artista & artista', self.genre, self.album)
+        self.downloader.download()
+        self.assertTrue(os.path.isfile('artista & artista - tít&ulo.mp3'))
+
+        #character :
+        self.downloader = Downloader(self.url, 'título:10', 'artista:10', self.genre, self.album)
+        self.downloader.download()
+        self.assertTrue(os.path.isfile('artista:10 - título:10.mp3'))
+
+        #character '
+        self.downloader = Downloader(self.url, 'tít\'ulo', 'don\'t', self.genre, self.album)
+        self.downloader.download()
+        self.assertTrue(os.path.isfile('don\'t - tít\'ulo.mp3'))
 
 
 if __name__ == "__main__":
