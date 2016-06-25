@@ -20,6 +20,27 @@ def download(url='', title='', artist='', gender='', album=''):
     path = downloader.download()
     return send_from_directory(os.path.abspath('.'), path, as_attachment=True)
 
+@app.route("/downloadlink", methods=['POST'])
+def downloadlink(url='', title='', artist='', gender='', album=''):
+    cleanMp3s()
+    url = request.form['url']
+    title = request.form['title']
+    artist = request.form['artist']
+    gender = request.form['gender']
+    album = request.form['album']
+    downloader = Downloader(url, title, artist, gender, album)
+    path = downloader.download()
+    dir = 'files/'
+    if not os.path.exists(dir):
+            os.makedirs(dir)
+    newpath = dir + path
+    os.rename(path, newpath)
+    return '/'  + newpath
+
+@app.route("/files/<file>", methods=['GET'])
+def files(file):
+    return send_from_directory(os.path.abspath('files'), file, as_attachment=True)
+
 def cleanMp3s():
     mp3s = filter(lambda file: file.endswith('.mp3'), os.listdir('.'))
     for mp3 in mp3s:
