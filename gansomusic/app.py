@@ -35,7 +35,7 @@ def downloadlink(url='', title='', artist='', gender='', album=''):
             os.makedirs(dir)
     newpath = dir + path
     os.rename(path, newpath)
-    return '/'  + newpath
+    return '<a href="/' + newpath + '">' + newpath + '</a>'
 
 @app.route("/files/<file>", methods=['GET'])
 def files(file):
