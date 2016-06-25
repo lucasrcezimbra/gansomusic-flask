@@ -2,10 +2,9 @@
 
 import pafy
 from pydub import AudioSegment
-import eyed3
-from vagalume import lyrics
 import os
 from slugify import Slugify
+from tagger import Tagger
 
 #fix encoding
 import sys
@@ -27,21 +26,13 @@ class Downloader:
 
         self.newtitle = self.slugify(audio.title)
         self.__convertToMp3(file, audio.extension)
-        return self.__editTags()
+        tagger = Tagger(self.newtitle + '.mp3', self.title, self.artist, self.genre, self.album)
+        mp3 = tagger.editTags()
+        return self.__renameFile(mp3)
 
     def __convertToMp3(self, file, extension):
         mp3_audio = AudioSegment.from_file(file, extension)
         mp3_audio.export(self.newtitle + '.mp3', format='mp3')
-
-    def __editTags(self):
-        mp3 = eyed3.load(self.newtitle + ".mp3")
-        mp3.tag.title = unicode(self.title)
-        mp3.tag.artist = unicode(self.artist)
-        mp3.tag.genre = unicode(self.genre)
-        mp3.tag.album = unicode(self.album)
-        mp3.tag.lyrics.set(unicode(self.__getLyrics()))
-        mp3.tag.save(version=eyed3.id3.ID3_V2_3)
-        return self.__renameFile(mp3)
 
     def __renameFile(self, mp3):
         if self.newtitle != self.getName():
@@ -58,10 +49,3 @@ class Downloader:
 
     def getPath(self):
         return self.slugify(self.getName()+'.mp3')
-
-    def __getLyrics(self):
-        result = lyrics.find(self.artist, self.title)
-        if result.is_not_found():
-            return ''
-        else:
-            return result.song.lyric
