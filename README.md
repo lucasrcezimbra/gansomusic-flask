@@ -1,4 +1,4 @@
-#Ganso Music ![alt tag](https://raw.githubusercontent.com/Lrcezimbra/gansomusic/master/gansomusic/static/icons/favicon-96x96.png)
+#Ganso Music ![Ganso Music](https://raw.githubusercontent.com/Lrcezimbra/gansomusic/master/gansomusic/static/icons/favicon-96x96.png)
 Download music from YouTube and edit tags
 
 ## Install
