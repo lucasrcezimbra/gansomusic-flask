@@ -13,5 +13,5 @@ regex==2016.6.24
 requests==2.9.1
 Unidecode==0.4.19
 vagalume==0.0.5
-Werkzeug==0.11.10
+Werkzeug==0.11.15
 youtube-dl==2016.6.25
