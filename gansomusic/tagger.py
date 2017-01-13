@@ -27,8 +27,11 @@ class Tagger:
         return mp3
 
     def __getLyrics(self):
-        result = lyrics.find(self.artist, self.title)
-        if result.is_not_found():
+        try:
+            result = lyrics.find(self.artist, self.title)
+            if result.is_not_found():
+                return ''
+            else:
+                return result.song.lyric
+        except:
             return ''
-        else:
-            return result.song.lyric
