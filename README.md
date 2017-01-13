@@ -6,3 +6,9 @@ Download music from YouTube and edit tags
 
 ## Install
 Set the environment variables `GANSO-EMAIL-LOGIN` and `GANSO-EMAIL-PASSWORD` to use with [yagmail](https://github.com/kootenpv/yagmail)
+
+## Deploy 
+Add buildpack to Heroku: 
+```
+$ heroku buildpacks:add https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest
+```
