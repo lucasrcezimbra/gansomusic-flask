@@ -9,7 +9,7 @@ Jinja2==2.9.4
 MarkupSafe==0.23
 pafy==0.5.2
 pydub==0.16.4
-regex==2016.6.24
+regex==2017.01.12
 requests==2.12.4
 Unidecode==0.04.20
 vagalume==0.0.5
