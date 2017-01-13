@@ -14,4 +14,4 @@ requests==2.12.4
 Unidecode==0.04.20
 vagalume==0.0.5
 Werkzeug==0.11.15
-youtube-dl==2016.6.25
+youtube-dl==2017.1.10
