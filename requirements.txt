@@ -1,5 +1,5 @@
 awesome-slugify==1.6.5
-click==6.6
+click==6.7
 Envelopes==0.4
 eyeD3==0.7.10
 Flask==0.12
