@@ -2,7 +2,7 @@ awesome-slugify==1.6.5
 eyeD3==0.7.10
 Flask==0.12
 gunicorn==19.6.0
-pafy==0.5.3
+pafy==0.5.3.1
 pydub==0.16.7
 vagalume==0.0.5
 youtube-dl==2017.1.14
