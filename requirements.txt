@@ -5,4 +5,4 @@ gunicorn==19.6.0
 pafy==0.5.3.1
 pydub==0.17.0
 vagalume==0.0.5
-youtube-dl==2017.2.4
+youtube-dl==2017.2.4.1
