@@ -17,7 +17,10 @@ def download(url='', title='', artist='', gender='', album=''):
     gender = request.form['gender']
     album = request.form['album']
     downloader = Downloader(url, title, artist, gender, album)
-    path = downloader.download()
+    try:
+        path = downloader.download()
+    except IOError as e:
+        return str(e)
     return send_from_directory(os.path.abspath('.'), path, as_attachment=True)
 
 @app.route("/downloadlink", methods=['POST'])
