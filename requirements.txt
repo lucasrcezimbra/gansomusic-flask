@@ -1,6 +1,6 @@
 awesome-slugify==1.6.5
 eyeD3==0.7.11
-Flask==0.12
+Flask==0.12.1
 gunicorn==19.7.1
 pafy==0.5.3.1
 pydub==0.18.0
